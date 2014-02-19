@@ -1,0 +1,62 @@
+<?php
+//  Author Name : Onjon Shahadat Hossain
+// Email : onjon_sh@yahoo.com
+// Facebook : facebook.com/onjon.sh
+
+
+// Project Name : LocalWork Listed
+// Version : 1.0.1
+// Release Date : 13th November, 2013
+
+
+// Off Errors Response 
+error_reporting( 0 );
+// Off Errors Response End
+
+
+// Get Sites 
+function showFiles() {  
+    $dir = "../work/";
+    if( is_dir( $dir ) ) {  
+        if( $handle = opendir( $dir ) )  {
+            $sites = array();
+            while( ( $file = readdir( $handle ) ) !== false ) {  
+                if( $file != "." && $file != ".." ) { 
+                    $sites[] = $file ;
+                }  
+            }
+            return $sites ; 
+            closedir($handle);  
+        }
+    }
+    else {
+        die( "Directory Not Exists!!!" );
+    }    
+}
+
+
+// Get Sites End 
+
+// Filter Sites 
+function filter( $a ) {
+    $fl = 1 ;
+    for( $i = 1 ; $i < strlen( $a ) ; $i++ ) {
+        if( $a[ $i ] == "." ) {
+            $fl = 0 ; 
+            break;
+        }
+    }
+    return $fl ;
+}
+// Filter Sites End 
+
+// Show Sites 
+$dir = showFiles() ; 
+$total_dir = sizeof( $dir );
+for( $i = 0 ; $i < $total_dir ; $i++ ) {
+    if( filter( $dir[ $i ] ) == 1 ) {
+        echo "<a href='".$dir[ $i ]."' target='_blank' >".$dir[ $i ] . "</a></br>" ;
+    }
+}
+// Show Sites End 
+?>

@@ -16,20 +16,30 @@ error_reporting( 0 );
 
 // Get Sites 
 function showFiles() {  
+    // Current Directory 
     $dir = "../work/";
+    // Check Directory Exists or Not 
     if( is_dir( $dir ) ) {  
+        // Open Directory 
         if( $handle = opendir( $dir ) )  {
+            // Take an Array
             $sites = array();
-            while( ( $file = readdir( $handle ) ) !== false ) {  
+            // Crawl all the folder 
+            while( ( $file = readdir( $handle ) ) != false ) {  
+                // Skip Parent Folders
                 if( $file != "." && $file != ".." ) { 
+                    // Get The File Name into Result Array 
                     $sites[] = $file ;
                 }  
             }
+            // Return Result
             return $sites ; 
+            // Close Directory
             closedir($handle);  
         }
     }
     else {
+        // Custom Error Message 
         die( "Directory Not Exists!!!" );
     }    
 }
@@ -37,7 +47,7 @@ function showFiles() {
 
 // Get Sites End 
 
-// Filter Sites 
+// Filter Results 
 function filter( $a ) {
     $fl = 1 ;
     for( $i = 1 ; $i < strlen( $a ) ; $i++ ) {
